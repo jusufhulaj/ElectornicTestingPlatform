@@ -1,0 +1,782 @@
+USE [ElectronicTestingSystem]
+GO
+/****** Object:  Table [dbo].[Answers]    Script Date: 12/5/2022 10:10:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Answers](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Text] [nvarchar](max) NOT NULL,
+	[QuestionId] [int] NOT NULL,
+ CONSTRAINT [PK_Answers] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetRoleClaims]    Script Date: 12/5/2022 10:10:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetRoleClaims](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RoleId] [nvarchar](450) NOT NULL,
+	[ClaimType] [nvarchar](max) NULL,
+	[ClaimValue] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetRoleClaims] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 12/5/2022 10:10:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetRoles](
+	[Id] [nvarchar](450) NOT NULL,
+	[Name] [nvarchar](256) NULL,
+	[NormalizedName] [nvarchar](256) NULL,
+	[ConcurrencyStamp] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetRoles] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 12/5/2022 10:10:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserClaims](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [nvarchar](450) NOT NULL,
+	[ClaimType] [nvarchar](max) NULL,
+	[ClaimValue] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 12/5/2022 10:10:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserLogins](
+	[LoginProvider] [nvarchar](128) NOT NULL,
+	[ProviderKey] [nvarchar](128) NOT NULL,
+	[ProviderDisplayName] [nvarchar](max) NULL,
+	[UserId] [nvarchar](450) NOT NULL,
+ CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY CLUSTERED 
+(
+	[LoginProvider] ASC,
+	[ProviderKey] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 12/5/2022 10:10:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserRoles](
+	[UserId] [nvarchar](450) NOT NULL,
+	[RoleId] [nvarchar](450) NOT NULL,
+ CONSTRAINT [PK_AspNetUserRoles] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 12/5/2022 10:10:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUsers](
+	[Id] [nvarchar](450) NOT NULL,
+	[UserName] [nvarchar](256) NULL,
+	[NormalizedUserName] [nvarchar](256) NULL,
+	[Email] [nvarchar](256) NULL,
+	[NormalizedEmail] [nvarchar](256) NULL,
+	[EmailConfirmed] [bit] NOT NULL,
+	[PasswordHash] [nvarchar](max) NULL,
+	[SecurityStamp] [nvarchar](max) NULL,
+	[ConcurrencyStamp] [nvarchar](max) NULL,
+	[PhoneNumber] [nvarchar](max) NULL,
+	[PhoneNumberConfirmed] [bit] NOT NULL,
+	[TwoFactorEnabled] [bit] NOT NULL,
+	[LockoutEnd] [datetimeoffset](7) NULL,
+	[LockoutEnabled] [bit] NOT NULL,
+	[AccessFailedCount] [int] NOT NULL,
+ CONSTRAINT [PK_AspNetUsers] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserTokens]    Script Date: 12/5/2022 10:10:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserTokens](
+	[UserId] [nvarchar](450) NOT NULL,
+	[LoginProvider] [nvarchar](128) NOT NULL,
+	[Name] [nvarchar](128) NOT NULL,
+	[Value] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetUserTokens] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[LoginProvider] ASC,
+	[Name] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Exams]    Script Date: 12/5/2022 10:10:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Exams](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Title] [nvarchar](max) NOT NULL,
+	[Author] [nvarchar](max) NOT NULL,
+	[NumberOfQuestions] [int] NOT NULL,
+	[TotalPoints] [float] NOT NULL,
+ CONSTRAINT [PK_Exams] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Logs]    Script Date: 12/5/2022 10:10:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Logs](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Message] [nvarchar](max) NULL,
+	[MessageTemplate] [nvarchar](max) NULL,
+	[Level] [nvarchar](max) NULL,
+	[TimeStamp] [datetime] NULL,
+	[Exception] [nvarchar](max) NULL,
+	[Properties] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Logs] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[MappedExamsAndQuestions]    Script Date: 12/5/2022 10:10:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[MappedExamsAndQuestions](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ExamId] [int] NOT NULL,
+	[QuestionId] [int] NOT NULL,
+ CONSTRAINT [PK_MappedExamsAndQuestions] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Questions]    Script Date: 12/5/2022 10:10:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Questions](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Text] [nvarchar](max) NOT NULL,
+	[ImageUrl] [nvarchar](max) NOT NULL,
+	[Points] [float] NOT NULL,
+	[FirstOption] [nvarchar](max) NOT NULL,
+	[SecondOption] [nvarchar](max) NOT NULL,
+	[ThirdOption] [nvarchar](max) NOT NULL,
+	[FourthOption] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_Questions] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[RequestedExams]    Script Date: 12/5/2022 10:10:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RequestedExams](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [nvarchar](450) NULL,
+	[ExamId] [int] NOT NULL,
+	[Status] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_RequestedExams] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Users]    Script Date: 12/5/2022 10:10:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Users](
+	[Id] [nvarchar](450) NOT NULL,
+	[FirstName] [nvarchar](50) NOT NULL,
+	[LastName] [nvarchar](50) NOT NULL,
+	[Email] [nvarchar](max) NOT NULL,
+	[UserName] [nvarchar](16) NOT NULL,
+	[DateOfBirth] [datetime2](7) NULL,
+	[Gender] [nvarchar](max) NOT NULL,
+	[PhoneNumber] [nvarchar](max) NOT NULL,
+	[DateCreated] [datetime2](7) NOT NULL,
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Answers] ON 
+GO
+INSERT [dbo].[Answers] ([Id], [Text], [QuestionId]) VALUES (1, N'Leonardo Da Vinci', 1)
+GO
+INSERT [dbo].[Answers] ([Id], [Text], [QuestionId]) VALUES (2, N'Brasilia', 2)
+GO
+INSERT [dbo].[Answers] ([Id], [Text], [QuestionId]) VALUES (3, N'100', 3)
+GO
+INSERT [dbo].[Answers] ([Id], [Text], [QuestionId]) VALUES (4, N'Orange River', 4)
+GO
+INSERT [dbo].[Answers] ([Id], [Text], [QuestionId]) VALUES (5, N'1914', 5)
+GO
+INSERT [dbo].[Answers] ([Id], [Text], [QuestionId]) VALUES (6, N'206', 6)
+GO
+INSERT [dbo].[Answers] ([Id], [Text], [QuestionId]) VALUES (7, N'Sir Francis Bacon', 7)
+GO
+INSERT [dbo].[Answers] ([Id], [Text], [QuestionId]) VALUES (8, N'Mercury', 8)
+GO
+INSERT [dbo].[Answers] ([Id], [Text], [QuestionId]) VALUES (9, N'Erastothenes', 9)
+GO
+INSERT [dbo].[Answers] ([Id], [Text], [QuestionId]) VALUES (10, N'Nyctophobia', 10)
+GO
+SET IDENTITY_INSERT [dbo].[Answers] OFF
+GO
+INSERT [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'24aa0a86-f84c-4648-9d6d-b0523eb19abf', N'User', N'USER', N'5bbb4ae2-7c3e-4a9b-8fc8-0a305ea2da29')
+GO
+INSERT [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'3d3ce80d-a50d-4fbf-9460-9d75400ca0db', N'Admin', N'ADMIN', N'518e3363-82ae-41cd-9d49-6d6b62c0194d')
+GO
+INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (N'8ad7aed4-6c62-4241-b541-271a69335fe1', N'24aa0a86-f84c-4648-9d6d-b0523eb19abf')
+GO
+INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (N'd098755e-8f10-465e-895e-ea0640f0d936', N'3d3ce80d-a50d-4fbf-9460-9d75400ca0db')
+GO
+INSERT [dbo].[AspNetUsers] ([Id], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'8ad7aed4-6c62-4241-b541-271a69335fe1', N'ali.hulaj', N'ALI.HULAJ', N'jusufhulaj03@gmail.com', N'JUSUFHULAJ03@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAECj++MT5a7mrDErb5gRGkp3da58kgldydVeS9xezb4Gn2zUOu6ZdnlViOtYhkEQ+ng==', N'YGQKABJLO7ZYAOLBIHU5N2M475MEJ32X', N'8fe5e792-b2f3-4518-b964-8614e56167e3', N'+38344123456', 0, 0, NULL, 1, 0)
+GO
+INSERT [dbo].[AspNetUsers] ([Id], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'd098755e-8f10-465e-895e-ea0640f0d936', N'jusuf.hulaj', N'JUSUF.HULAJ', N'jusufhulaj16@gmail.com', N'JUSUFHULAJ16@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEKMNzLfGFi2D/uD+zWqxV8VJAafPxCBaQ2uj1alWvHjtWGZr0SJt1uvh/1XCPZ/ByA==', N'JZZVQ7BJA63QE7FEU2467AQFPNJEGAIP', N'c698cfd6-d36a-439e-bd36-8bc5efc7aee7', N'+38345889800', 0, 0, NULL, 1, 0)
+GO
+SET IDENTITY_INSERT [dbo].[Exams] ON 
+GO
+INSERT [dbo].[Exams] ([Id], [Title], [Author], [NumberOfQuestions], [TotalPoints]) VALUES (1, N'Practical Exam 1', N'Jusuf Hulaj', 5, 50)
+GO
+INSERT [dbo].[Exams] ([Id], [Title], [Author], [NumberOfQuestions], [TotalPoints]) VALUES (2, N'Practical Exam 2', N'Jusuf Hulaj', 5, 50)
+GO
+INSERT [dbo].[Exams] ([Id], [Title], [Author], [NumberOfQuestions], [TotalPoints]) VALUES (3, N'Practical Exam 3', N'Jusuf Hulaj', 5, 50)
+GO
+INSERT [dbo].[Exams] ([Id], [Title], [Author], [NumberOfQuestions], [TotalPoints]) VALUES (4, N'Final Exam', N'Jusuf Hulaj', 8, 80)
+GO
+INSERT [dbo].[Exams] ([Id], [Title], [Author], [NumberOfQuestions], [TotalPoints]) VALUES (5, N'Final Exam 2', N'Jusuf Hulaj', 8, 80)
+GO
+INSERT [dbo].[Exams] ([Id], [Title], [Author], [NumberOfQuestions], [TotalPoints]) VALUES (6, N'Random Questions 1', N'Jusuf Hulaj', 4, 40)
+GO
+INSERT [dbo].[Exams] ([Id], [Title], [Author], [NumberOfQuestions], [TotalPoints]) VALUES (7, N'Random Questions 2', N'Jusuf Hulaj', 6, 60)
+GO
+INSERT [dbo].[Exams] ([Id], [Title], [Author], [NumberOfQuestions], [TotalPoints]) VALUES (8, N'Random Questions 3', N'Jusuf Hulaj', 6, 60)
+GO
+INSERT [dbo].[Exams] ([Id], [Title], [Author], [NumberOfQuestions], [TotalPoints]) VALUES (9, N'Random Questions 3', N'Jusuf Hulaj', 6, 60)
+GO
+SET IDENTITY_INSERT [dbo].[Exams] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Logs] ON 
+GO
+INSERT [dbo].[Logs] ([Id], [Message], [MessageTemplate], [Level], [TimeStamp], [Exception], [Properties]) VALUES (1, N'You must first make a request for this exam!', N'You must first make a request for this exam!', N'Information', CAST(N'2022-12-05T16:43:23.837' AS DateTime), NULL, N'<properties><property key=''SourceContext''>ElectronicTestingSystem.Helpers.CustomExceptions.ExamExceptions.ExamNotFoundException</property><property key=''ActionId''>9efe6e5d-8b64-4389-8964-368682718bd5</property><property key=''ActionName''>ElectronicTestingSystem.Controllers.ExamController.ApproveExam (ElectronicTestingSystem)</property><property key=''RequestId''>40000020-0000-fd00-b63f-84710c7967bb</property><property key=''RequestPath''>/api/exams/6/approve</property></properties>')
+GO
+INSERT [dbo].[Logs] ([Id], [Message], [MessageTemplate], [Level], [TimeStamp], [Exception], [Properties]) VALUES (2, N'Exam not found: 50', N'Exam not found: 50', N'Information', CAST(N'2022-12-05T16:44:35.113' AS DateTime), NULL, N'<properties><property key=''SourceContext''>ElectronicTestingSystem.Helpers.CustomExceptions.ExamExceptions.ExamNotFoundException</property><property key=''ActionId''>e2197218-bcd0-4dc2-9ff2-0eef832277f2</property><property key=''ActionName''>ElectronicTestingSystem.Controllers.ExamController.Get (ElectronicTestingSystem)</property><property key=''RequestId''>4000001f-0006-ff00-b63f-84710c7967bb</property><property key=''RequestPath''>/api/exams/50</property></properties>')
+GO
+INSERT [dbo].[Logs] ([Id], [Message], [MessageTemplate], [Level], [TimeStamp], [Exception], [Properties]) VALUES (3, N'An exception occurred in the database while saving changes for context type ''"ElectronicTestingSystem.Data.ElectronicTestingSystemDbContext"''."
+""Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column ''ImageUrl'', table ''ElectronicTestingSystem.dbo.Questions''; column does not allow nulls. UPDATE fails.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+ClientConnectionId:061a3c8c-33b6-48c8-9504-180b7b915038
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)"', N'An exception occurred in the database while saving changes for context type ''{contextType}''.{newline}{error}', N'Error', CAST(N'2022-12-05T16:47:48.687' AS DateTime), N'Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column ''ImageUrl'', table ''ElectronicTestingSystem.dbo.Questions''; column does not allow nulls. UPDATE fails.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+ClientConnectionId:061a3c8c-33b6-48c8-9504-180b7b915038
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at ElectronicTestingSystem.Data.UnitOfWork.UnitOfWork.Complete() in C:\Users\pan1c\Documents\LIFE\Backend - Assignments\First Assignment\ElectronicTestingSystem\ElectronicTestingSystem\Data\UnitOfWork\UnitOfWork.cs:line 39
+   at ElectronicTestingSystem.Services.QuestionService.CreateFromJSON(IFormFile file) in C:\Users\pan1c\Documents\LIFE\Backend - Assignments\First Assignment\ElectronicTestingSystem\ElectronicTestingSystem\Services\QuestionService.cs:line 95
+   at ElectronicTestingSystem.Controllers.QuestionController.CreateFromFile(IFormFile file) in C:\Users\pan1c\Documents\LIFE\Backend - Assignments\First Assignment\ElectronicTestingSystem\ElectronicTestingSystem\Controllers\QuestionController.cs:line 58
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)', N'<properties><property key=''contextType''>ElectronicTestingSystem.Data.ElectronicTestingSystemDbContext</property><property key=''newline''>
+</property><property key=''error''>Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---&gt; Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column ''ImageUrl'', table ''ElectronicTestingSystem.dbo.Questions''; column does not allow nulls. UPDATE fails.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean&amp; dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean&amp; moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean&amp; more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+ClientConnectionId:061a3c8c-33b6-48c8-9504-180b7b915038
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)</property><property key=''EventId''><structure type=''''><property key=''Id''>10000</property><property key=''Name''>Microsoft.EntityFrameworkCore.Update.SaveChangesFailed</property></structure></property><property key=''SourceContext''>Microsoft.EntityFrameworkCore.Update</property><property key=''ActionId''>95dd1eb5-9a76-4bc6-b7b4-b29a3d0e4b38</property><property key=''ActionName''>ElectronicTestingSystem.Controllers.QuestionController.CreateFromFile (ElectronicTestingSystem)</property><property key=''RequestId''>40000010-0008-fd00-b63f-84710c7967bb</property><property key=''RequestPath''>/api/questions/addFromFile</property></properties>')
+GO
+INSERT [dbo].[Logs] ([Id], [Message], [MessageTemplate], [Level], [TimeStamp], [Exception], [Properties]) VALUES (4, N'An unhandled exception has occurred while executing the request.', N'An unhandled exception has occurred while executing the request.', N'Error', CAST(N'2022-12-05T16:47:48.963' AS DateTime), N'Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column ''ImageUrl'', table ''ElectronicTestingSystem.dbo.Questions''; column does not allow nulls. UPDATE fails.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+ClientConnectionId:061a3c8c-33b6-48c8-9504-180b7b915038
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at ElectronicTestingSystem.Data.UnitOfWork.UnitOfWork.Complete() in C:\Users\pan1c\Documents\LIFE\Backend - Assignments\First Assignment\ElectronicTestingSystem\ElectronicTestingSystem\Data\UnitOfWork\UnitOfWork.cs:line 39
+   at ElectronicTestingSystem.Services.QuestionService.CreateFromJSON(IFormFile file) in C:\Users\pan1c\Documents\LIFE\Backend - Assignments\First Assignment\ElectronicTestingSystem\ElectronicTestingSystem\Services\QuestionService.cs:line 95
+   at ElectronicTestingSystem.Controllers.QuestionController.CreateFromFile(IFormFile file) in C:\Users\pan1c\Documents\LIFE\Backend - Assignments\First Assignment\ElectronicTestingSystem\ElectronicTestingSystem\Controllers\QuestionController.cs:line 58
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)', N'<properties><property key=''EventId''><structure type=''''><property key=''Id''>1</property><property key=''Name''>UnhandledException</property></structure></property><property key=''SourceContext''>Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware</property><property key=''RequestId''>40000010-0008-fd00-b63f-84710c7967bb</property><property key=''RequestPath''>/api/questions/addFromFile</property></properties>')
+GO
+INSERT [dbo].[Logs] ([Id], [Message], [MessageTemplate], [Level], [TimeStamp], [Exception], [Properties]) VALUES (5, N'An unhandled exception has occurred while executing the request.', N'An unhandled exception has occurred while executing the request.', N'Error', CAST(N'2022-12-05T16:52:58.990' AS DateTime), N'System.FormatException: Input string was not in a correct format.
+   at System.Number.ThrowOverflowOrFormatException(ParsingStatus status, TypeCode type)
+   at System.Double.Parse(String s)
+   at ElectronicTestingSystem.Services.QuestionService.CreateFromCSV(IFormFile file) in C:\Users\pan1c\Documents\LIFE\Backend - Assignments\First Assignment\ElectronicTestingSystem\ElectronicTestingSystem\Services\QuestionService.cs:line 57
+   at ElectronicTestingSystem.Controllers.QuestionController.CreateFromFile(IFormFile file) in C:\Users\pan1c\Documents\LIFE\Backend - Assignments\First Assignment\ElectronicTestingSystem\ElectronicTestingSystem\Controllers\QuestionController.cs:line 54
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)', N'<properties><property key=''EventId''><structure type=''''><property key=''Id''>1</property><property key=''Name''>UnhandledException</property></structure></property><property key=''SourceContext''>Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware</property><property key=''RequestId''>40000023-0001-ff00-b63f-84710c7967bb</property><property key=''RequestPath''>/api/questions/addFromFile</property></properties>')
+GO
+INSERT [dbo].[Logs] ([Id], [Message], [MessageTemplate], [Level], [TimeStamp], [Exception], [Properties]) VALUES (6, N'An unhandled exception has occurred while executing the request.', N'An unhandled exception has occurred while executing the request.', N'Error', CAST(N'2022-12-05T17:00:59.030' AS DateTime), N'System.InvalidOperationException: There is an error in XML document (2, 2).
+ ---> System.InvalidOperationException: <root xmlns=''''> was not expected.
+   at Microsoft.Xml.Serialization.GeneratedAssembly.XmlSerializationReaderList1.Read4_ArrayOfQuestionCreateDTO()
+   --- End of inner exception stack trace ---
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(Stream stream)
+   at ElectronicTestingSystem.Services.QuestionService.CreateFromXML(IFormFile file)
+   at ElectronicTestingSystem.Controllers.QuestionController.CreateFromFile(IFormFile file)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)', N'<properties><property key=''EventId''><structure type=''''><property key=''Id''>1</property><property key=''Name''>UnhandledException</property></structure></property><property key=''SourceContext''>Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware</property><property key=''RequestId''>40000007-0005-ff00-b63f-84710c7967bb</property><property key=''RequestPath''>/api/questions/addFromFile</property></properties>')
+GO
+INSERT [dbo].[Logs] ([Id], [Message], [MessageTemplate], [Level], [TimeStamp], [Exception], [Properties]) VALUES (7, N'An unhandled exception has occurred while executing the request.', N'An unhandled exception has occurred while executing the request.', N'Error', CAST(N'2022-12-05T17:12:06.600' AS DateTime), N'System.InvalidOperationException: There is an error in XML document (2, 2).
+ ---> System.InvalidOperationException: <ArrayOfQuestions xmlns=''''> was not expected.
+   at Microsoft.Xml.Serialization.GeneratedAssembly.XmlSerializationReaderList1.Read4_ArrayOfQuestionCreateDTO()
+   --- End of inner exception stack trace ---
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(Stream stream)
+   at ElectronicTestingSystem.Services.QuestionService.CreateFromXML(IFormFile file)
+   at ElectronicTestingSystem.Controllers.QuestionController.CreateFromFile(IFormFile file)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)', N'<properties><property key=''EventId''><structure type=''''><property key=''Id''>1</property><property key=''Name''>UnhandledException</property></structure></property><property key=''SourceContext''>Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware</property><property key=''RequestId''>40000019-0003-ff00-b63f-84710c7967bb</property><property key=''RequestPath''>/api/questions/addFromFile</property></properties>')
+GO
+INSERT [dbo].[Logs] ([Id], [Message], [MessageTemplate], [Level], [TimeStamp], [Exception], [Properties]) VALUES (8, N'An unhandled exception has occurred while executing the request.', N'An unhandled exception has occurred while executing the request.', N'Error', CAST(N'2022-12-05T21:12:36.917' AS DateTime), N'System.InvalidOperationException: There is an error in XML document (0, 0).
+ ---> System.Xml.XmlException: There is no Unicode byte order mark. Cannot switch to Unicode.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.ThrowWithoutLineInfo(String res)
+   at System.Xml.XmlTextReaderImpl.CheckEncoding(String newEncodingName)
+   at System.Xml.XmlTextReaderImpl.ParseXmlDeclaration(Boolean isTextDecl)
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlReader.MoveToContent()
+   at Microsoft.Xml.Serialization.GeneratedAssembly.XmlSerializationReaderList1.Read4_ArrayOfQuestionCreateDTO()
+   --- End of inner exception stack trace ---
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(Stream stream)
+   at ElectronicTestingSystem.Services.QuestionService.CreateFromXML(IFormFile file) in C:\Users\pan1c\Documents\LIFE\Backend - Assignments\First Assignment\ElectronicTestingSystem\ElectronicTestingSystem\Services\QuestionService.cs:line 106
+   at ElectronicTestingSystem.Controllers.QuestionController.CreateFromFile(IFormFile file) in C:\Users\pan1c\Documents\LIFE\Backend - Assignments\First Assignment\ElectronicTestingSystem\ElectronicTestingSystem\Controllers\QuestionController.cs:line 63
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)', N'<properties><property key=''EventId''><structure type=''''><property key=''Id''>1</property><property key=''Name''>UnhandledException</property></structure></property><property key=''SourceContext''>Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware</property><property key=''RequestId''>40000065-0002-fe00-b63f-84710c7967bb</property><property key=''RequestPath''>/api/questions/addFromFile</property></properties>')
+GO
+SET IDENTITY_INSERT [dbo].[Logs] OFF
+GO
+SET IDENTITY_INSERT [dbo].[MappedExamsAndQuestions] ON 
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (1, 1, 6)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (2, 1, 10)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (3, 1, 8)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (4, 1, 7)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (5, 1, 4)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (6, 2, 1)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (7, 2, 6)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (8, 2, 3)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (9, 2, 4)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (10, 2, 7)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (11, 3, 10)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (12, 3, 4)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (13, 3, 1)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (14, 3, 9)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (15, 3, 7)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (16, 4, 6)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (17, 4, 2)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (18, 4, 8)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (19, 4, 4)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (20, 4, 10)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (21, 4, 1)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (22, 4, 5)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (23, 4, 9)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (24, 5, 8)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (25, 5, 2)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (26, 5, 5)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (27, 5, 4)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (28, 5, 7)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (29, 5, 6)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (30, 5, 1)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (31, 5, 10)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (32, 6, 5)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (33, 6, 3)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (34, 6, 1)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (35, 6, 9)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (36, 7, 1)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (37, 7, 5)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (38, 7, 4)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (39, 7, 6)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (40, 7, 2)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (41, 7, 9)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (42, 8, 2)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (43, 8, 9)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (44, 8, 1)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (45, 8, 8)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (46, 8, 7)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (47, 8, 3)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (48, 9, 2)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (49, 9, 8)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (50, 9, 5)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (51, 9, 6)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (52, 9, 1)
+GO
+INSERT [dbo].[MappedExamsAndQuestions] ([Id], [ExamId], [QuestionId]) VALUES (53, 9, 10)
+GO
+SET IDENTITY_INSERT [dbo].[MappedExamsAndQuestions] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Questions] ON 
+GO
+INSERT [dbo].[Questions] ([Id], [Text], [ImageUrl], [Points], [FirstOption], [SecondOption], [ThirdOption], [FourthOption]) VALUES (1, N'What is the name of the artist who painted ‘Mona Lisa’', N'https://tojnhu4mvp.gjirafa.net/LIFE/Jusuf/132238ec-1d2e-4176-bda0-aea15ee8c9da.jpg', 10, N'Leonardo Di Caprio', N'Drita Suka', N'Ludwig van Beethoven', N'Leonardo Da Vinci')
+GO
+INSERT [dbo].[Questions] ([Id], [Text], [ImageUrl], [Points], [FirstOption], [SecondOption], [ThirdOption], [FourthOption]) VALUES (2, N'What is the capital of Brazil?', N'https://upload.wikimedia.org/wikipedia/en/thumb/0/05/Flag_of_Brazil.svg/1200px-Flag_of_Brazil.svg.png', 10, N'Sao Paulo', N'Brasilia', N'Rio De Janeiro', N'Florianopolis')
+GO
+INSERT [dbo].[Questions] ([Id], [Text], [ImageUrl], [Points], [FirstOption], [SecondOption], [ThirdOption], [FourthOption]) VALUES (3, N'What temperature does water boil at? (Celsius)', N'https://tojnhu4mvp.gjirafa.net/LIFE/Jusuf/b4413dd6-af9e-40cf-b44e-abfeb32c9d71.jpg', 10, N'150', N'200', N'90', N'100')
+GO
+INSERT [dbo].[Questions] ([Id], [Text], [ImageUrl], [Points], [FirstOption], [SecondOption], [ThirdOption], [FourthOption]) VALUES (4, N'Which is the longest river in South Africa?', N'https://tojnhu4mvp.gjirafa.net/LIFE/Jusuf/169f4be1-f092-449a-bc33-56768c0a9dbc.jpg', 10, N'Breerivier', N'Vaal River', N'Orange River', N'Olifantsrivier')
+GO
+INSERT [dbo].[Questions] ([Id], [Text], [ImageUrl], [Points], [FirstOption], [SecondOption], [ThirdOption], [FourthOption]) VALUES (5, N'When was the first World War fought?', N'https://tojnhu4mvp.gjirafa.net/LIFE/Jusuf/5887b9e3-e12c-4e36-8916-0ed3f81c2a26.jpg', 10, N'1920', N'1900', N'1814', N'1914')
+GO
+INSERT [dbo].[Questions] ([Id], [Text], [ImageUrl], [Points], [FirstOption], [SecondOption], [ThirdOption], [FourthOption]) VALUES (6, N'How many bones are there in the human body?', N'https://tojnhu4mvp.gjirafa.net/LIFE/Jusuf/629ad268-4c16-4d7d-9888-dab386e4d63c.jpg', 10, N'200', N'185', N'206', N'215')
+GO
+INSERT [dbo].[Questions] ([Id], [Text], [ImageUrl], [Points], [FirstOption], [SecondOption], [ThirdOption], [FourthOption]) VALUES (7, N'Who said the famous quote ‘Knowledge is Power’?', N'https://tojnhu4mvp.gjirafa.net/LIFE/Jusuf/3c60c8d2-05bb-4847-bfec-437a61841950.jpg', 10, N'Sir Francis Bacon', N'Dan Bena', N'Less Brown', N'Earl Nightingale')
+GO
+INSERT [dbo].[Questions] ([Id], [Text], [ImageUrl], [Points], [FirstOption], [SecondOption], [ThirdOption], [FourthOption]) VALUES (8, N'Which planet is closest to Sun?', N'https://tojnhu4mvp.gjirafa.net/LIFE/Jusuf/fca9b650-5fc0-49ee-9879-559c08df9273.jpg', 10, N'Earth', N'Pluto', N'Mercury', N'Neptune')
+GO
+INSERT [dbo].[Questions] ([Id], [Text], [ImageUrl], [Points], [FirstOption], [SecondOption], [ThirdOption], [FourthOption]) VALUES (9, N'Who is the father of Geography?', N'https://tojnhu4mvp.gjirafa.net/LIFE/Jusuf/c4917fd5-747d-4051-a4e1-fada6da28224.jpg', 10, N'Arnaldo Faustini', N'Erastothenes', N'Carl Ritter', N'Muhammad al-Idrisi')
+GO
+INSERT [dbo].[Questions] ([Id], [Text], [ImageUrl], [Points], [FirstOption], [SecondOption], [ThirdOption], [FourthOption]) VALUES (10, N'Phobia of darkness is called??', N'https://tojnhu4mvp.gjirafa.net/LIFE/Jusuf/87bffc29-7f7a-43fa-b975-a4af9aa9b590.jpg', 10, N'Acrophobia', N'Trypanophobia', N'Nyctophobia', N'Agoraphobia')
+GO
+SET IDENTITY_INSERT [dbo].[Questions] OFF
+GO
+SET IDENTITY_INSERT [dbo].[RequestedExams] ON 
+GO
+INSERT [dbo].[RequestedExams] ([Id], [UserId], [ExamId], [Status]) VALUES (5, N'8ad7aed4-6c62-4241-b541-271a69335fe1', 1, N'Approved')
+GO
+SET IDENTITY_INSERT [dbo].[RequestedExams] OFF
+GO
+INSERT [dbo].[Users] ([Id], [FirstName], [LastName], [Email], [UserName], [DateOfBirth], [Gender], [PhoneNumber], [DateCreated]) VALUES (N'8ad7aed4-6c62-4241-b541-271a69335fe1', N'Ali', N'Hulaj', N'jusufhulaj03@gmail.com', N'ali.hulaj', CAST(N'2007-12-14T16:00:44.6250000' AS DateTime2), N'Male', N'+38344123456', CAST(N'2022-12-05T15:32:27.7837681' AS DateTime2))
+GO
+INSERT [dbo].[Users] ([Id], [FirstName], [LastName], [Email], [UserName], [DateOfBirth], [Gender], [PhoneNumber], [DateCreated]) VALUES (N'd098755e-8f10-465e-895e-ea0640f0d936', N'Jusuf', N'Hulaj', N'jusufhulaj16@gmail.com', N'jusuf.hulaj', CAST(N'2003-05-13T18:45:21.3070000' AS DateTime2), N'Male', N'+38345889800', CAST(N'2022-12-05T15:30:46.7301902' AS DateTime2))
+GO
+ALTER TABLE [dbo].[Answers]  WITH CHECK ADD  CONSTRAINT [FK_Answers_Questions_QuestionId] FOREIGN KEY([QuestionId])
+REFERENCES [dbo].[Questions] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Answers] CHECK CONSTRAINT [FK_Answers_Questions_QuestionId]
+GO
+ALTER TABLE [dbo].[AspNetRoleClaims]  WITH CHECK ADD  CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[AspNetRoles] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetRoleClaims] CHECK CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId]
+GO
+ALTER TABLE [dbo].[AspNetUserClaims]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserClaims] CHECK CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AspNetUserLogins]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserLogins] CHECK CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AspNetUserRoles]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[AspNetRoles] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserRoles] CHECK CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId]
+GO
+ALTER TABLE [dbo].[AspNetUserRoles]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserRoles] CHECK CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AspNetUserTokens]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserTokens] CHECK CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[MappedExamsAndQuestions]  WITH CHECK ADD  CONSTRAINT [FK_MappedExamsAndQuestions_Exams_ExamId] FOREIGN KEY([ExamId])
+REFERENCES [dbo].[Exams] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[MappedExamsAndQuestions] CHECK CONSTRAINT [FK_MappedExamsAndQuestions_Exams_ExamId]
+GO
+ALTER TABLE [dbo].[MappedExamsAndQuestions]  WITH CHECK ADD  CONSTRAINT [FK_MappedExamsAndQuestions_Questions_QuestionId] FOREIGN KEY([QuestionId])
+REFERENCES [dbo].[Questions] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[MappedExamsAndQuestions] CHECK CONSTRAINT [FK_MappedExamsAndQuestions_Questions_QuestionId]
+GO
+ALTER TABLE [dbo].[RequestedExams]  WITH CHECK ADD  CONSTRAINT [FK_RequestedExams_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+GO
+ALTER TABLE [dbo].[RequestedExams] CHECK CONSTRAINT [FK_RequestedExams_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[RequestedExams]  WITH CHECK ADD  CONSTRAINT [FK_RequestedExams_Exams_ExamId] FOREIGN KEY([ExamId])
+REFERENCES [dbo].[Exams] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[RequestedExams] CHECK CONSTRAINT [FK_RequestedExams_Exams_ExamId]
+GO
