@@ -17,6 +17,7 @@ namespace ElectronicTestingSystem.Helpers
             CreateMap<User, IdentityUser>().ReverseMap();
 
             CreateMap<Exam, ExamDTO>().ReverseMap();
+            CreateMap<Exam, ExamUserDTO>().ReverseMap();
 
             CreateMap<Question, QuestionCreateDTO>().ReverseMap();
             CreateMap<Question, QuestionDTO>().ReverseMap();

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 
@@ -65,9 +66,11 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Add DbContext
 builder.Services.AddDbContext<ElectronicTestingSystemDbContext>(options =>
                  options.UseSqlServer(builder.Configuration.GetConnectionString("ElectronicTestingSystem")));
 
+// Add Microsoft Identity DbContext
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ElectronicTestingSystemDbContext>();
@@ -76,9 +79,19 @@ builder.Services.AddTransient<IExamService, ExamService>();
 builder.Services.AddTransient<IQuestionService, QuestionService>();
 builder.Services.AddTransient<IUserService, UserService>();
 
+// Add Smpt
 var smtpConfiguration = builder.Configuration.GetSection(nameof(SmtpConfiguration)).Get<SmtpConfiguration>();
 builder.Services.AddSingleton(smtpConfiguration);
 builder.Services.AddTransient<IEmailSender, SmtpMailSender>();
+
+// Add Logger
+var logger = new LoggerConfiguration()
+        .ReadFrom.Configuration(builder.Configuration)
+        .Enrich.FromLogContext()
+        .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
 var app = builder.Build();
 
@@ -95,5 +108,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(cors => cors.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
 app.Run();

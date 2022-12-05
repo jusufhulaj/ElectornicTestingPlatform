@@ -23,22 +23,6 @@ namespace ElectronicTestingSystem.Services
 
             _unitOfWork.Repository<Answer>().Create(answer);
             _unitOfWork.Complete();
-
-        }
-
-        public async Task DeleteAnswer(int answerdId)
-        {
-            var answer = await GetAnswer(answerdId);
-
-            _unitOfWork.Repository<Answer>().Delete(answer);
-            _unitOfWork.Complete();
-        }
-
-        public async Task<List<Answer>> GetAllAnswers()
-        {
-            var answers = _unitOfWork.Repository<Answer>().GetAll();
-
-            return answers.ToList();
         }
 
         public async Task<Answer> GetAnswer(int answerId)
@@ -46,9 +30,13 @@ namespace ElectronicTestingSystem.Services
             var answer = _unitOfWork.Repository<Answer>().GetById(x => x.Id == answerId).FirstOrDefault();
 
             return answer;
-
         }
+        public async Task<List<Answer>> GetAllAnswers()
+        {
+            var answers = _unitOfWork.Repository<Answer>().GetAll();
 
+            return answers.ToList();
+        }
         public async Task UpdateAnswer(Answer answerToUpdate)
         {
             var answer = await GetAnswer(answerToUpdate.Id);
@@ -56,6 +44,14 @@ namespace ElectronicTestingSystem.Services
             answer.Text = answerToUpdate.Text;
 
             _unitOfWork.Repository<Answer>().Update(answer);
+            _unitOfWork.Complete();
+        }
+
+        public async Task DeleteAnswer(int answerdId)
+        {
+            var answer = await GetAnswer(answerdId);
+
+            _unitOfWork.Repository<Answer>().Delete(answer);
             _unitOfWork.Complete();
         }
     }

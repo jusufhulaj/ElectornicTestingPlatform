@@ -22,7 +22,7 @@ namespace ElectronicTestingSystem.Models.Entities
         [Required]
         [MaxLength(16)]
         public string UserName { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public string Gender { get; set; }
 
         [Phone]

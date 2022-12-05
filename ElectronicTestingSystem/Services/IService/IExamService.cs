@@ -9,14 +9,17 @@ namespace ElectronicTestingSystem.Services.IService
 {
     public interface IExamService
     {
-        Task CreateExam(int numOfQuestions);
+        Task<ExamDTO> CreateExam(string examTitle, string author, int numOfQuestions);
         Task<ExamDTO> GetExam(int examId);
         Task UpdateExam(ExamDTO examToUpdate);
         Task DeleteExam(int examId);
 
         Task<List<ExamDTO>> GetAllExams();
-        Task<string> RequestExam(IdentityUser user, int examId);
+
+        Task<ExamRequestDTO> RequestExam(IdentityUser user, int examId);
         Task<string> ApproveExam(IdentityUser user, int examId);
+        Task<bool> CheckApprovalStatus(string userId, int examId);
+
         Task<ExamResultsDTO> CheckExamSubmit(string userId, int id, List<ExamSubmitDTO> userAnswers);
     }
 }

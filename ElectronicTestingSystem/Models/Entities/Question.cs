@@ -1,9 +1,13 @@
-﻿namespace ElectronicTestingSystem.Models.Entities
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+namespace ElectronicTestingSystem.Models.Entities
 {
     public class Question
     {
         public int Id { get; set; }
         public string Text { get; set; }
+        [ValidateNever]
+        public string ImageUrl { get; set; }
         public double Points { get; set; }
 
         // Question Options

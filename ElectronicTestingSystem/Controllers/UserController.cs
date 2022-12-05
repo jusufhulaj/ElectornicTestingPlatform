@@ -2,6 +2,7 @@
 using ElectronicTestingSystem.Models.Entities;
 using ElectronicTestingSystem.Services.IService;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ElectronicTestingSystem.Controllers
@@ -12,10 +13,12 @@ namespace ElectronicTestingSystem.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, UserManager<IdentityUser> userManager)
         {
-              _userService = userService;
+            _userService = userService;
+            _userManager = userManager;
         }
 
         [HttpGet("{id}")]
@@ -54,7 +57,28 @@ namespace ElectronicTestingSystem.Controllers
                 return NotFound();
             }
 
+            var identityUser = await _userManager.FindByIdAsync(user.Id);
+            identityUser.UserName = user.UserName;
+            identityUser.PhoneNumber = user.PhoneNumber;
+
             return Ok(user);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var user = await _userManager.FindByIdAsync(User.Claims.Where(x => x.Type == "Id").FirstOrDefault()?.Value);
+
+            if(user == null)
+            {
+                return BadRequest("User not found!");
+            }
+
+            await _userManager.DeleteAsync(user);
+            
+            await _userService.DeleteUser(id);
+
+            return Ok("User has been deleted!");
         }
     }
 }

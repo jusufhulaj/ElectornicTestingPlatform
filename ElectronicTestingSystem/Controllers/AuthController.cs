@@ -29,30 +29,7 @@ namespace ElectronicTestingSystem.Controllers
 
             _jwtConfiguration = configuration.GetValue<string>("JWTConfig:Secret");
             _userService = userService;
-        }
-
-        /*[HttpPost]
-        [Route("roles")]
-        public async Task<IActionResult> CreateRole(string roleName)
-        {
-            var role = await _roleManager.RoleExistsAsync(roleName);
-
-            if (!role)
-            {
-                var CreateRole = await _roleManager.CreateAsync(new IdentityRole(roleName));
-
-                if (CreateRole.Succeeded)
-                {
-                    return Ok($"Role {roleName} created successfully!");
-                }
-                else
-                {
-                    return BadRequest($"Role {roleName} could not be created!");
-                }
-            }
-
-            return BadRequest("Role already exists!");
-        }*/    
+        } 
 
         [HttpPost]
         [Route("register")]

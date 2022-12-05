@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ElectronicTestingSystem.Data.UnitOfWork;
 using ElectronicTestingSystem.Helpers;
+using ElectronicTestingSystem.Helpers.CustomExceptions.QuestionExceptions;
 using ElectronicTestingSystem.Models.DTOs.Answer;
 using ElectronicTestingSystem.Models.DTOs.Question;
 using ElectronicTestingSystem.Models.Entities;
@@ -40,27 +41,31 @@ namespace ElectronicTestingSystem.Services
             var csvData = new List<string>();
             using(var reader = new StreamReader(file.OpenReadStream()))
             {
-                while(reader.Peek() >=0)
+                while(reader.Peek() >= 0)
                 {
                     csvData.Add(reader.ReadLine());
                 }
             }
+
             List<Question> questionsToCreate = new List<Question>();
             csvData.RemoveAt(0);
+            
             foreach(var line in csvData)
             {
                 var delimitedLine = line.Split(",");
+                
                 QuestionCreateDTO question = new QuestionCreateDTO
                 {
                     Text = delimitedLine[0],
-                    Points = double.Parse(delimitedLine[1]),
-                    FirstOption = delimitedLine[2],
-                    SecondOption = delimitedLine[3],
-                    ThirdOption = delimitedLine[4],
-                    FourthOption = delimitedLine[5],
+                    ImageUrl = delimitedLine[1],
+                    Points = double.Parse(delimitedLine[2]),
+                    FirstOption = delimitedLine[3],
+                    SecondOption = delimitedLine[4],
+                    ThirdOption = delimitedLine[5],
+                    FourthOption = delimitedLine[6],
                     CorrectAnswer = new AnswerCreateDTO
                     {
-                        Text = delimitedLine[6]
+                        Text = delimitedLine[7]
                     }
                 };
 
@@ -78,8 +83,10 @@ namespace ElectronicTestingSystem.Services
             {
                 jsonData = await reader.ReadToEndAsync();
             }
+
             var convertedData = JsonConvert.DeserializeObject<List<QuestionCreateDTO>>(jsonData);
             List<Question> questionsToCreate = new List<Question>();
+            
             foreach (QuestionCreateDTO questionToCreate in convertedData)
             {
                 questionsToCreate.Add(_mapper.Map<Question>(questionToCreate));
@@ -91,10 +98,10 @@ namespace ElectronicTestingSystem.Services
 
         public async Task CreateFromXML(IFormFile file)
         {
-            /*var xmlSerializer = new XmlSerializer(typeof(List<QuestionCreateDTO>));
+            var xmlSerializer = new XmlSerializer(typeof(List<QuestionCreateDTO>));
             var questionsToCreate = new List<QuestionCreateDTO>();
             var mappedQuestions = new List<Question>();
-            using(var reader = new StreamReader(filePath))
+            using (var reader = file.OpenReadStream())
             {
                 questionsToCreate = (List<QuestionCreateDTO>)xmlSerializer.Deserialize(reader);
             }
@@ -105,14 +112,17 @@ namespace ElectronicTestingSystem.Services
             }
 
             _unitOfWork.Repository<Question>().CreateRange(mappedQuestions);
-            _unitOfWork.Complete();*/
-
-            throw new NotImplementedException();
+            _unitOfWork.Complete();
         }
 
         public async Task<QuestionDTO> Get(int questionID)
         {
             var question = await _questionHelperMethods.GetQuesiton(_unitOfWork, questionID);
+
+            if (question == null)
+            {
+                throw new QuestionNotFoundException(questionID);
+            }
 
             return _mapper.Map<QuestionDTO>(question);
         }
@@ -121,11 +131,20 @@ namespace ElectronicTestingSystem.Services
         {
             var questions = _unitOfWork.Repository<Question>().GetAll().Select(question => _mapper.Map<QuestionDTO>(question));
 
+            if(questions == null)
+            {
+                throw new QuestionNotFoundException("No questions could be found!");
+            }
+
             return questions.ToList();
         }
         public async Task UpdateQuestion(QuestionDTO questionToUpdate)
         {
             var question = await Get(questionToUpdate.Id);
+            if(question == null)
+            {
+                throw new QuestionNotFoundException(questionToUpdate.Id);
+            }
 
             question.Text = questionToUpdate.Text;
 
@@ -141,6 +160,10 @@ namespace ElectronicTestingSystem.Services
         public async Task DeleteQuestion(int questionId)
         {
             var question = await _questionHelperMethods.GetQuesiton(_unitOfWork, questionId);
+            if (question == null)
+            {
+                throw new QuestionNotFoundException(questionId);
+            }
 
             var ExamsWithQuestion = await _unitOfWork.Repository<MappedExamsAndQuestions>().GetAll()
                                                 .Where(q => q.QuestionId == question.Id)

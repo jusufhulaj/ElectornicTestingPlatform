@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ElectronicTestingSystem.Data.UnitOfWork;
+using ElectronicTestingSystem.Models;
 using ElectronicTestingSystem.Models.DTOs.Exam;
 using ElectronicTestingSystem.Models.DTOs.Question;
 using ElectronicTestingSystem.Models.Entities;
@@ -17,10 +18,11 @@ namespace ElectronicTestingSystem.Helpers
             ExamDTO examDTO = new ExamDTO
             {
                 Id = exam.Id,
+                Title = exam.Title,
+                Author = exam.Author,
                 NumberOfQuestions = exam.NumberOfQuestions,
                 TotalPoints = exam.TotalPoints,
                 Questions = ExamQuestions
-
             };
 
             return examDTO;
@@ -31,6 +33,23 @@ namespace ElectronicTestingSystem.Helpers
             var MappedExams = await unitOfWork.Repository<MappedExamsAndQuestions>().GetByCondition(me => me.ExamId == id).ToListAsync();
 
             return MappedExams;
+        }
+
+        public async Task<bool> ApprovedExam(IUnitOfWork unitOfWork, string userId, int examId)
+        {
+            var approvalStatus = await unitOfWork.Repository<RequestedExams>().GetByCondition(s => s.UserId == userId && s.ExamId == examId).FirstOrDefaultAsync();
+
+            if(approvalStatus == null)
+            {
+                return false;
+            }
+            
+            if(approvalStatus.Status == "Approved" || approvalStatus.Status == "Done")
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

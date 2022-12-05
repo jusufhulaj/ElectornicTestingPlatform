@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using ElectronicTestingSystem.Helpers;
 using Microsoft.AspNetCore.Identity;
 using ElectronicTestingSystem.Models;
+using ElectronicTestingSystem.Helpers.CustomExceptions.ExamExceptions;
+using ElectronicTestingSystem.Helpers.CustomExceptions.AnswerExceptions;
+using ElectronicTestingSystem.Helpers.CustomExceptions.QuestionExceptions;
 
 namespace ElectronicTestingSystem.Services
 {
@@ -29,9 +32,9 @@ namespace ElectronicTestingSystem.Services
             _examHelperMethods = new ExamHelperMethods();
         }
 
-        public async Task CreateExam(int numOfQuestions)
+        public async Task<ExamDTO> CreateExam(string examTitle, string author, int numOfQuestions)
         {
-            Exam exam = new Exam { NumberOfQuestions = numOfQuestions, TotalPoints = 0};
+            Exam exam = new Exam { Title = examTitle, Author = author, NumberOfQuestions = numOfQuestions, TotalPoints = 0};
             var questions = _unitOfWork.Repository<Question>().GetAll().OrderBy(q => Guid.NewGuid()).Take(numOfQuestions);
 
             foreach (var question in questions)
@@ -52,11 +55,19 @@ namespace ElectronicTestingSystem.Services
 
             _unitOfWork.Repository<Exam>().Create(exam);
             _unitOfWork.Complete();
+
+            ExamDTO examWithQuestions = await _examHelperMethods.GetExamQuestions(_unitOfWork, _mapper, exam);
+            return examWithQuestions;
         }
 
         public async Task<ExamDTO> GetExam(int examId)
         {
             var exam = await _unitOfWork.Repository<Exam>().GetById(e => e.Id == examId).AsNoTracking().FirstOrDefaultAsync();
+
+            if(exam == null)
+            {
+                throw new ExamNotFoundException(examId);
+            }
 
             var ExamWithQuestions = await _examHelperMethods.GetExamQuestions(_unitOfWork, _mapper, exam);
 
@@ -67,6 +78,11 @@ namespace ElectronicTestingSystem.Services
         {
             var exams = await _unitOfWork.Repository<Exam>().GetAll().ToListAsync();
 
+            if(exams == null)
+            {
+                throw new ExamNotFoundException("No exams could be found!");
+            }
+            
             List<ExamDTO> ExamsWithQuestions = new();
             foreach (Exam exam in exams)
             {
@@ -80,6 +96,11 @@ namespace ElectronicTestingSystem.Services
         {
             var exam = _mapper.Map<Exam>(await GetExam(examId));
 
+            if(exam == null)
+            {
+                throw new ExamNotFoundException(examId);
+            }
+
             var examQuestions = await _examHelperMethods.GetMappedExams(_unitOfWork, examId);
             _unitOfWork.Repository<MappedExamsAndQuestions>().DeleteRange(examQuestions.ToList());
 
@@ -87,24 +108,23 @@ namespace ElectronicTestingSystem.Services
             _unitOfWork.Complete();
         }
 
-        /*public async Task UpdateExam(ExamDTO examToUpdate)
-        {
-            var exams = await _unitOfWork.Repository<Exam>().GetByCondition(x => x.Id == examToUpdate.Id).GroupBy(exam => new { exam.Id, exam }).ToListAsync();
-
-            
-        }*/
         public async Task UpdateExam(ExamDTO examToUpdate)
         {
-            Console.WriteLine("Update Exam");
+            throw new NotImplementedException();
         }
 
-        public async Task<string> RequestExam(IdentityUser user, int examId)
+        public async Task<ExamRequestDTO> RequestExam(IdentityUser user, int examId)
         {
             var exam = await _unitOfWork.Repository<Exam>().GetById(e => e.Id == examId).FirstOrDefaultAsync();
 
+            if(exam == null)
+            {
+                throw new ExamNotFoundException(examId);
+            }
+
             var existingRequest = await _unitOfWork.Repository<RequestedExams>().GetByCondition(x => x.ExamId == examId && x.UserId == user.Id)?.FirstOrDefaultAsync();
-            
-            if(existingRequest == null)
+
+            if (existingRequest == null)
             {
                 RequestedExams requestedExam = new RequestedExams
                 {
@@ -112,16 +132,27 @@ namespace ElectronicTestingSystem.Services
                     ExamId = examId,
 
                     User = user,
-                    UserId = user.Id
+                    UserId = user.Id,
+
+                    Status = "Requested"
 
                 };
 
                 _unitOfWork.Repository<RequestedExams>().Create(requestedExam);
                 _unitOfWork.Complete();
 
-                return "Request created successfully!";
+                return new ExamRequestDTO
+                {
+                    Admin = "Jusuf Hulaj",
+                    User = user.UserName,
+                    ExamId = examId
+                };
+            }else if (existingRequest.Status == "Done")
+            {
+                throw new ExamRequestException($"You have already taken exam {exam.Id}");
             }
-            return "A request has already been issued!";
+
+            throw new ExamRequestException($"You have already made a request for exam {exam.Id}");
         }
 
         public async Task<string> ApproveExam(IdentityUser user, int examId)
@@ -130,14 +161,20 @@ namespace ElectronicTestingSystem.Services
 
             if (requestedExam == null)
             {
-                return "Invalid Request";
+                throw new ExamRequestException("You must first make a request for this exam!");
             }
 
             requestedExam.Status = "Approved";
+
             _unitOfWork.Repository<RequestedExams>().Update(requestedExam);
             _unitOfWork.Complete();
 
             return $"Approved exam {examId} for user {user.UserName}!";
+        }
+
+        public async Task<bool> CheckApprovalStatus(string userId, int examId)
+        {
+            return await _examHelperMethods.ApprovedExam(_unitOfWork, userId, examId);
         }
 
         public async Task<ExamResultsDTO> CheckExamSubmit(string userId, int id, List<ExamSubmitDTO> userAnswers)
@@ -146,48 +183,29 @@ namespace ElectronicTestingSystem.Services
 
             if (exam == null)
             {
-                return new ExamResultsDTO
-                {
-                    Error = "Could not find a particular exam with the given Id!"
-                };
+                throw new ExamNotFoundException(id);
             }
 
             var userExamRequest = await _unitOfWork.Repository<RequestedExams>().GetByCondition(e => e.UserId == userId && e.ExamId == exam.Id).FirstOrDefaultAsync();
             if(userExamRequest == null)
             {
-                return new ExamResultsDTO
-                {
-                    Error = "Make sure you have made a request for this exam before trying to participate!"
-                };
-            }
-            else if(userExamRequest.Status == "Processing")
+                throw new ExamRequestException("Make sure you have made a request for this exam and that it has been approved!");
+            }else if(userExamRequest.Status == "Requested")
             {
-                return new ExamResultsDTO
-                {
-                    Error = "Your request for taking this exam has not been approved yet!"
-                };
+                throw new ExamRequestException("Your request for this exam has not been approved yet!");
             }else if(userExamRequest.Status == "Declined")
             {
-                return new ExamResultsDTO
-                {
-                    Error = "Your request for taking this exam has been declined!"
-                };
+                throw new ExamRequestException("Your request for this exam has been declined!");
             }else if(userExamRequest.Status == "Done")
             {
-                return new ExamResultsDTO
-                {
-                    Error = "You have already taken this exam. Try another one!"
-                };
+                throw new ExamRequestException("You have already taken this exam! Maybe try another one.");
             }
             
             var examQuestions = await _examHelperMethods.GetExamQuestions(_unitOfWork, _mapper, _mapper.Map<Exam>(exam));
             
             if(userAnswers.Count != examQuestions.Questions.Count)
             {
-                return new ExamResultsDTO
-                {
-                    Error = "You have not answered all the questions corresponding to this exam!"
-                };
+                throw new AnswerException("You have not answered all the questions corresponding to this exam!");
             }
 
             Dictionary<int, bool> correctAnswers = new Dictionary<int, bool>();
@@ -205,6 +223,7 @@ namespace ElectronicTestingSystem.Services
 
             var resultPercentage = (points / exam.TotalPoints) * 100;
             byte grade = 5;
+
             if(resultPercentage >= 50 && resultPercentage < 60)
             {
                 grade = 6;
@@ -225,16 +244,15 @@ namespace ElectronicTestingSystem.Services
                 grade = 10;
             }
 
-            //return $"Thank you for submiting exam {examId}.\nYou have {correctAnswers.Count} correct answers with a total of {points} points.\nYou got a {grade}";
-            
             // Update exam status for user after taking it
             userExamRequest.Status = "Done";
             _unitOfWork.Repository<RequestedExams>().Update(userExamRequest);
             _unitOfWork.Complete();
-            
+
             return new ExamResultsDTO
             {
                 CorrectAnswers = correctAnswers.Count,
+                Points = points,
                 Grade = grade
             };
         
@@ -246,7 +264,7 @@ namespace ElectronicTestingSystem.Services
 
             if (question == null)
             {
-                return null;
+                throw new QuestionNotFoundException(questionId);
             }
 
             var questionAnswer = await _unitOfWork.Repository<Answer>().GetByCondition(a => a.QuestionId == questionId && a.Text == answer).FirstOrDefaultAsync();
